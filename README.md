@@ -191,7 +191,8 @@ does not capture the non-financial factors and those hard to quantify. For
 example, the ability to customize an owned property; the time cost of property
 search and eventual sale; the loss of geographic mobility; or the risk of
 rental income disruption if you relocate and must sublet. These are real
-factors. They are outside this analysis.  The code should adapt to other
-property types. For example, for a detached house, set
-condo_fee_and_maintenance to zero and add property tax. The structure stays the
-same.
+factors. They are outside this analysis.
+
+The code should adapt to other property types. For example, for a detached
+house, set condo_fee_and_maintenance to zero and add property tax. The
+structure stays the same.
