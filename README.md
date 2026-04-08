@@ -1,6 +1,6 @@
 # Mortgage vs. Rent: NPV Comparison
 
-**Boris Garbuzov, Vova, Maxim — April 2026**
+**Boris Garbuzov, April 2026**
 
 ## 1. Motivation
 
