@@ -75,24 +75,21 @@ We assume the mortgage rate is constant for the full term — no modelling of
 interpretable.
 
 - **H_years = 10** — project horizon: the year you expect to sell.
-Underappreciated parameter. The transactional costs — agency_percentage and legal fees are paid at the end of it. 
-
-- **capital_gain_tax_percentage = 0.10** — are fixed charges paid at sale
+Underappreciated parameter. The transactional costs — agency_percentage and legal fees and other charges are paid at sale
 regardless of how long you held the property. A short horizon means those costs
 are amortized over fewer years, making ownership less attractive. The model
 makes this visible.
 
 - **initial_house_price = 400_000** — purchase price in dollars. The notebook
 sweeps this from $0 to $1M. Caution on interpretation: across that range, the
-equivalent rent is held fixed at $1,800/month regardless of price. A more
-realistic range for the Toronto condo market is $300K–$500K.
+equivalent rent is held fixed at $1,800/month regardless of price. 
 
 - **condo_fee_and_maintenance = 650** — monthly ownership costs above the
 mortgage payment. In Toronto, a typical breakdown is $600 condo fee and $50
 maintenance reserve.
 
-- **utilities = 200** — monthly hydro, gas, internet. This appears identically
-in both scenarios and therefore cancels in the comparison — it does not affect
+- **utilities = 200** — monthly hydro, gas, internet and on. This appears identically
+in both scenarios and therefore cancels in the comparison. mpt affecting the 
 net_purchase_benefit. It is included so each scenario shows its true total
 monthly outflow.
 
@@ -113,12 +110,12 @@ inflow to the owner.
 
 - **Mortgage NPV** — present value of the full ownership position. Outflows:
 monthly mortgage payments plus condo fee, maintenance, and utilities, each
-discounted at r_d.  Inflow: net_selling_revenue discounted back from month
+discounted at r_d.  Inflow: net_selling_revenue discounted back from monthly 
 H_years × 12. The sum of these two components, discounted at r_d_monthly.
 
 - **Rent NPV** — present value of the rental position. Outflow: monthly rent
 plus utilities, discounted at r_d. Inflow: the downpayment itself, which is not
-spent and earns r_d— it enters as a positive term offsetting the rental outflows.
+spent and earns r_d — it enters as a positive term offsetting the rental outflows.
 Mortgage payment monthly — the fixed annuity payment on the mortgage principal,
 computed from the standard amortization formula.
 
@@ -127,13 +124,9 @@ Positive means owning wins; negative means renting wins.
 
 ## 3. Code and Usage
 
-**Dependencies**: numpy, pandas, matplotlib.
+It is implemented as a Python notebook. You need to install the packages numpy, pandas, and matplotlib.
 
-Single calculation at default parameters:
 
-```python
-calculate()
-```
 Sensitivity sweep — vary one parameter, hold the rest at
 defaults:
 
@@ -143,11 +136,7 @@ run(r_a_yearly=np.arange(-0.03, 0.1, 0.01))
 Pass exactly one parameter as a NumPy array. The `run()` function iterates over
 it, calls `calculate()` at each point, and produces a 2×3 plot grid — one panel
 per output variable — plus a formatted pandas table. Additional parameters can
-be fixed away from their defaults:
-
-```python
-run(T_years=np.arange(5, 50, 5))
-```
+be fixed away from their defaults. 
 The notebook covers all twelve parameters as sweep variables: 12 sections, 6
 plots each.
 
@@ -187,7 +176,7 @@ quantitatively.
 
 Mortgage insurance is not modelled — we assume the downpayment is large enough
 to avoid it (20% or more).  The model captures the main financial flows. It
-does not capture the non-financial factors and those hard to quantify. For
+does not capture the non-financial factors and those that are hard to quantify. For
 example, the ability to customize an owned property; the time cost of property
 search and eventual sale; the loss of geographic mobility; or the risk of
 rental income disruption if you relocate and must sublet. These are real
