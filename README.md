@@ -10,21 +10,21 @@ You either rent the place you live in, or you own it. If you own it, you can
 live there yourself — in which case the avoided rent is your implicit income —
 or you can rent it out and live elsewhere. Either way, the calculation is the
 same: what does ownership return, net of all costs, versus what does renting
-cost, net of the opportunity cost of the downpayment.
+cost, net of the opportunity cost of the down payment.
 
 Both options are negative in absolute terms — housing is a cost. The honest
 question is not "is buying good" but "which option loses less money in present
 value terms, under your specific forecast of the inputs."
 
-Toronto condo prices have been falling for three years (data). That matters, but
+Toronto condo prices have been falling for three years https://toronto.listing.ca/condo-price-history.htm  . That matters, but
 it is not decisive on its own. A negative appreciation rate can be offset by a
 low mortgage rate, a low maintenance fee, a long holding horizon, or a high
 equivalent rent. There is no shortcut — you have to set all twelve parameters
 and compute.
 
-This notebook does that. You set your numbers, it computes six outputs and plots
+The notebook of this project does that. You set your numbers, it computes six outputs and plots
 each one as a function of any parameter you want to vary. If you do not care
-about the plots, a single call gives you the bottom line.
+about the plots as a sensitivity analysis, a single call gives you the bottom line.
 
 ## 2. The Model
 
@@ -32,13 +32,13 @@ about the plots, a single call gives you the bottom line.
 
 - **r_m_yearly = 0.04** — annual mortgage rate. Published by lenders online, no
 estimation needed. Around 4% was the prevailing rate at the time of writing.
-Set it to whatever you are quoted today — 3.5% is closer to current levels.
+Reset it to whatever you are quoted. For example, today, it is probably around 3.5%.
 
 - **r_d_yearly = 0.0375** — annual discount rate, and simultaneously the
-opportunity cost of the downpayment.  At the time of writing, a 3.75% GIC was
-available in Canada.  In the ownership scenario this rate discounts future cash
-flows to present value; in the rental scenario it represents what the
-downpayment would earn sitting in a deposit instead of going toward a purchase.
+opportunity cost of the downpayment.  At the time of writing, a GIC of a bit below than 3.75%  was
+available in Canada.  In the ownership scenario, this rate discounts future cash
+flows to present value; in the rental scenario, it represents what the
+down payment would earn sitting in a deposit instead of going toward a purchase.
 This rate should sit below the mortgage rate. The bank issues the mortgage and
 bears the credit risk, so it earns a spread over the risk-free deposit rate.
 That spread is the gap between r_m and r_d. Economically, the discount rate has
@@ -50,9 +50,9 @@ year.
 requiring the most judgment. Real estate is one component of the consumption
 basket; its appreciation can diverge from the general discount rate depending on
 local supply, demographics, and credit conditions. The Toronto historical
-estimate was around 5% annualized through 2022. The following three years were
-negative. As a working forecast: roughly +1% for a 5-year horizon, +3% for a
-10-year horizon. The notebook sweeps from −3% to +9% so you can observe exactly
+estimate was widely quoted at around 5% annualized till 2022. The following three years were
+negative. As a working forecast: roughly, on average, +1% for a 5-year horizon, +3% for a
+10-year horizon. The notebook sweeps from −3% to +9%, so you can observe exactly
 where the decision flips.
 
 - **downpayment_percentage = 0.20** — fraction of the purchase price paid
@@ -61,8 +61,8 @@ capital tied up in the property — its foregone interest is the opportunity cos
 that makes renting more attractive than it first appears.
 
 - **agency_percentage = 0.06** — realtor commission plus legal fees at sale, as
-a fraction of the future selling price. A fixed transactional drag paid once at
-the end of the horizon. Easy to overlook. On a $500K property it is $30K out the
+a fraction of the future selling price. A fixed transactional drag is paid once at
+the end of the horizon. Easy to overlook. On a $500K property, it is $30K out the
 door.
 
 - **capital_gain_tax_percentage = 0.10** — tax on the nominal price appreciation
@@ -75,7 +75,7 @@ We assume the mortgage rate is constant for the full term — no modelling of
 interpretable.
 
 - **H_years = 10** — project horizon: the year you expect to sell.
-Underappreciated parameter. The transactional costs — agency_percentage and
+Underappreciated parameter. The transactional costs — agency_percentage and legal fees are paid at the end of it. 
 
 - **capital_gain_tax_percentage = 0.10** — are fixed charges paid at sale
 regardless of how long you held the property. A short horizon means those costs
